@@ -1,11 +1,13 @@
-# PyTorch Hub
 import torch
 
 # Load the YOLOv5 model
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 
+# Adjust the confidence threshold if needed
+model.conf = 0.25  # Default is 0.25, lower it if necessary to detect more objects
+
 # Single Image
-img = 'IMG_2.jpg'  # path to your image
+img = 'IMG_2.jpg'  # Ensure the image path is correct
 
 # Inference
 results = model(img)
@@ -21,6 +23,4 @@ person_count = (persons[:, -1] == 0).sum().item()
 print(f"Number of people detected: {person_count}")
 
 # Display the image with bounding boxes
-results.show()   # Displays the image with the detected objects
-
-
+results.show()  # Displays the image with the detected objects
