@@ -1,26 +1,18 @@
-import torch
+from mmdet.apis import init_detector, inference_detector, show_result_pyplot
 
-# Load the YOLOv5 model
-model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
+# Load the model config and checkpoint
+config_file = 'configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py'
+checkpoint_file = 'checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth'
 
-# Adjust the confidence threshold if needed
-model.conf = 0.25  # Default is 0.25, lower it if necessary to detect more objects
+model = init_detector(config_file, checkpoint_file, device='cuda:0')
 
-# Single Image
-img = 'IMG_2.jpg'  # Ensure the image path is correct
+# Test a single image
+img = 'IMG_2.jpg'
+result = inference_detector(model, img)
 
-# Inference
-results = model(img)
-
-# Print results
-results.print()  # Prints the detection results in the console
-
-# Filter the results for the "person" class (class 0 in COCO dataset)
-persons = results.xyxy[0]  # xyxy format: [x1, y1, x2, y2, confidence, class]
-person_count = (persons[:, -1] == 0).sum().item()
-
-# Output the number of people detected
+# Count the number of people (class 0 in COCO)
+person_count = len(result[0][0])
 print(f"Number of people detected: {person_count}")
 
-# Display the image with bounding boxes
-results.show()  # Displays the image with the detected objects
+# Show the result
+show_result_pyplot(model, img, result)
