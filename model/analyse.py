@@ -25,7 +25,7 @@ def analyse_picture(image_path):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     torch.backends.cudnn.enabled = False
 
-    model_path = 'src/cmtl_shtechA_204.h5'
+    model_path = 'src/cmtl_shtechA_100.h5'
 
     # Load the pre-trained model
     net = CrowdCounter()
@@ -44,7 +44,7 @@ def analyse_picture(image_path):
         density_map = net(im_data)
 
     density_map = density_map.data.cpu().numpy()
-    people_count = np.sum(density_map)
+    people_count = int(np.sum(density_map))
     print("Estimated count:", people_count)
 
     end_time = time.time()
@@ -53,3 +53,7 @@ def analyse_picture(image_path):
     print()
 
     return people_count
+
+if __name__ == "__main__":
+     image_path = "samples/sample1.jpg"
+     analyse_picture(image_path)
