@@ -20,7 +20,7 @@ def preprocess_image(image_path):
 
 def analyse_picture(image_path):
 
-    print("Starting analysis of picture!")
+    print("Starting analysis of picture!\n")
     start_time = time.time()
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     torch.backends.cudnn.enabled = False
@@ -35,10 +35,10 @@ def analyse_picture(image_path):
 
     # Preprocess the image
     im_data = preprocess_image(image_path)
-    print('Image processed')
+    print('Image pre-processing done!\n')
 
     im_data = torch.tensor(im_data).to(device)
-    print('Starting to count people')
+    print('Starting to count people :) \n')
 
     with torch.no_grad():
         density_map = net(im_data)
