@@ -7,7 +7,10 @@ function Heatmap(){
 
     const config = {
         method: 'get',
-        url: backend_endpoint
+        url: backend_endpoint,
+        headers: {
+            'Content-Type': 'application/json',
+        },
     }
 
     axios(config)
@@ -23,7 +26,7 @@ function Heatmap(){
 
     return(
         <>
-            <iframe srcdoc={map_html} />
+            <iframe srcDoc={map_html} />
         </>
     )
 }

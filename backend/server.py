@@ -2,8 +2,11 @@ from flask import Flask, render_template, request
 from heatmap import map
 from model.model import CrowdDensityEstimator
 from data import map_data
+from flask_cors import CORS 
+
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/create_map', methods=['GET'])
