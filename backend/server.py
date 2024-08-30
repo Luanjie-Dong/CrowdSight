@@ -1,13 +1,11 @@
 from flask import Flask, render_template, request
-# import subprocess
 from heatmap import map
-from flask_socketio import SocketIO
 from model.model import CrowdDensityEstimator
 
 app = Flask(__name__)
 
 
-@app.route('/create_map', methods=['POST'])
+@app.route('/create_map', methods=['GET'])
 def receive_data():
     data = request.get_json()
     mrt = data.get('mrt')   #mrt = {"City Hall": [1.293191026024169, 103.85165498556803],...}
@@ -19,22 +17,18 @@ def receive_data():
                                         #     "Longitude": 103.862298,
                                         #     "URL": http.....
                                         # },...}
-    """RUN CV MODEL HERE USING camera_loc URL"""
 
-    estimator = CrowdDensityEstimator(model_path='src/cmtl_shtechA_100.h5')
+    """CV MODEL IS HEREEE"""
+    model_path = 'model/src/cmtl_shtechA_100.h5'
+    estimator = CrowdDensityEstimator(model_path)
+    cameras = {}
     for camera in cameras_loc:
         video_path = cameras_loc[camera]['URL']
+        long = cameras_loc[camera]['Longitude']
+        lat = cameras_loc[camera]['Lattitude']
         camera = camera
-        estimator.analyse_stream(video_path,camera)
-
-
-
-    # cameras={
-    #     "CAM1": {
-    #         "Lattitude": 1.299810,
-    #         "Longitude": 103.862298,
-    #         "Num_people": 240
-    #     }...}
+        crowd = estimator.analyse_stream(video_path,camera)
+        cameras[crowd[0]] = {"Longitude":long,"Lattitude":lat,"Num_people":crowd}
 
     ###GET THE NUM_PEOPLE FOR EACH CAMERA FROM CV,
     ### ABOVE SHOULD BE THE FORMAT BEFORE INPUTTING INTO MAP FUNCTION
@@ -42,8 +36,20 @@ def receive_data():
     # Run the map.py script to generate the map
     map.create_map(aoi,mrt,bus_stops,cameras)
 
-    # Render the map in an iframe in the HTML template
+    # return  "MAP IS GOOD"
+    # # Render the map in an iframe in the HTML template
     return render_template('index.html')
+
+
+    
+@app.route('/hello', methods=['GET'])
+def hello():
+    message = "the server is saying hello"
+    return message
+
+
+
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
