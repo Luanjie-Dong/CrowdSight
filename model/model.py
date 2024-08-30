@@ -75,12 +75,12 @@ class CrowdDensityEstimator:
         cap.release()
         cv2.destroyAllWindows()
 
-    def analyse_stream(self, video_url):
+    def analyse_stream(self, video_url,camera, analyze_interval=5):
         # Use ffmpeg to capture the video stream from the URL
         ffmpeg_command = [
             'ffmpeg',
             '-i', video_url,
-            '-vf', 'scale=640:480',  # Scale the video to 640x360 resolution
+            '-vf', 'scale=640:480',  # Scale the video to 640x480 resolution
             '-an',  # Disable audio
             '-r', '10',  # Reduce frame rate to 10 FPS
             '-f', 'rawvideo',
@@ -91,11 +91,14 @@ class CrowdDensityEstimator:
         print("Starting FFmpeg process...")
         process = subprocess.Popen(ffmpeg_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        frame_width = 640  # Adjust to the downscaled resolution
-        frame_height = 480  # Adjust to the downscaled resolution
-        frame_size = frame_width * frame_height * 3  # For BGR format
+        frame_width = 640  
+        frame_height = 480 
+        frame_size = frame_width * frame_height * 3  
+        fps = 10  
+        frames_to_skip = fps * analyze_interval  
 
         buffer = b''
+        frame_count = 0
         while True:
             buffer += process.stdout.read(frame_size - len(buffer))
             if len(buffer) < frame_size:
@@ -103,28 +106,31 @@ class CrowdDensityEstimator:
                 break
 
             frame = np.frombuffer(buffer[:frame_size], np.uint8).reshape((frame_height, frame_width, 3))
-            buffer = buffer[frame_size:]  # Keep any extra data
+            buffer = buffer[frame_size:]  
 
-            # Debugging: Print to verify if frames are being captured
-            print("Captured a frame")
+            if frame_count % frames_to_skip == 0:
+                print("Captured a frame for analysis")
 
-            # Create a writable copy of the frame
-            writable_frame = frame.copy()
+                
+                writable_frame = frame.copy()
 
-            # Analyze each frame
-            people_count = self.analyse_frame(writable_frame)
+                people_count = self.analyse_frame(writable_frame)
 
-            # Optionally display the frame with the count
-            cv2.putText(writable_frame, f'Count: {people_count}', (10, 30),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
-            cv2.imshow('Frame', writable_frame)
+                # #display to see what is analysed
+                # cv2.putText(writable_frame, f'Count: {people_count}', (10, 30),
+                #             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                # cv2.imshow('Frame', writable_frame)
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+
+            frame_count += 1
 
         process.terminate()
         cv2.destroyAllWindows()
 
+        def outcome():
+            
 
 if __name__ == "__main__":
     estimator = CrowdDensityEstimator(model_path='src/cmtl_shtechA_100.h5')
