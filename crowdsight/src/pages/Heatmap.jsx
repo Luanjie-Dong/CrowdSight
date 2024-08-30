@@ -21,7 +21,7 @@ function Heatmap(){
 
     return(
         <>
-            <embed type="text/html" src={map_html} width="1200" height="800"></embed>
+            <iframe srcdoc={map_html} />
         </>
     )
 }
