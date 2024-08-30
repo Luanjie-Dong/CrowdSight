@@ -2,12 +2,58 @@ import axios from "axios";
 import React from "react";
 import { Link } from 'react-router-dom';
 
-function Camera(){
+async function Camera(){
+    const endpoint = import.meta.env.VITE_MONGODB_ENDPOINT + "/action/find"
+    const apikey = import.meta.env.VITE_MONGODB_API_KEY;
+    var camera_data = null;
+
+    console.log(endpoint);
+
+    const data = JSON.stringify({
+        "dataSource":"ESGeePeeTee",
+        "database" : "crowdsight",
+        "collection" : "cctv",
+        "filter" : {},
+    })
+
+    const config = {
+        method: 'post',
+        url: endpoint,
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apikey}`,
+        },
+        data: data,
+    };
+
+    axios(config)
+        .then((response) => {
+            // Access the array of documents directly from response.data
+            if (response.data.documents !== null) {
+                // console.log('successful');
+                camera_data = response.data.documents;
+                const all_cameras = []
+
+                for (const c in camera_data) {
+                    all_cameras.push({
+                        name: camera_data[c].name,
+                        longitude: camera_data[c].longitude,
+                        latitude: camera_data[c].latitude,
+                        url: camera_data[c].url,
+                    })
+                }
+                console.log(all_cameras);
+            } else {
+              alert("CCTV data not retrieved");
+            }
+        })
+
+
     const submit = () => {
         event.preventDefault();
     }
 
-    var object = "";
+    // var object = "";
 
     return(
         <>
