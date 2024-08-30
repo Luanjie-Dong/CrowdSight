@@ -31,7 +31,7 @@ def receive_map():
 
     # return  "MAP IS GOOD"
     # # Render the map in an iframe in the HTML template
-    return render_template('index.html')
+    return render_template('map.html')
 
 
     
