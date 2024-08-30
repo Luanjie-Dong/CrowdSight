@@ -1,5 +1,7 @@
 # CrowdSight
 
+![CrowdSight Dashboard](./crowdsight/src/assets/Nomura A1 (1).png)
+
 ## Project Description
 
 CrowdSight enables event organizers to model their event locations and use CCTV footage to visualize crowd density along predetermined exit routes. The system features a dashboard that provides a real-time overview of the event map, layered with a crowd density heatmap around key exit routes. This data allows event organizers and crowd control staff to deploy resources effectively, ensuring the efficient movement of people in and out of the event.
