@@ -21,15 +21,27 @@ def receive_data():
     """CV MODEL IS HEREEE"""
     model_path = 'model/src/cmtl_shtechA_100.h5'
     estimator = CrowdDensityEstimator(model_path)
-    outputs = {}
+    cameras = {}
     for camera in cameras_loc:
         video_path = cameras_loc[camera]['URL']
+        long = cameras_loc[camera]['Longitude']
+        lat = cameras_loc[camera]['Lattitude']
         camera = camera
         crowd = estimator.analyse_stream(video_path,camera)
-        outputs[crowd[0]] = crowd[1]
+        cameras[crowd[0]] = {"Longitude":long,"Lattitude":lat,"Num_people":crowd}
 
-    return outputs
+    ###GET THE NUM_PEOPLE FOR EACH CAMERA FROM CV,
+    ### ABOVE SHOULD BE THE FORMAT BEFORE INPUTTING INTO MAP FUNCTION
 
+    # Run the map.py script to generate the map
+    map.create_map(aoi,mrt,bus_stops,cameras)
+
+    # return  "MAP IS GOOD"
+    # # Render the map in an iframe in the HTML template
+    return render_template('index.html')
+
+
+    
 @app.route('/hello', methods=['GET'])
 def hello():
     message = "the server is saying hello"
@@ -37,21 +49,7 @@ def hello():
 
 
 
-    # cameras={
-    #     "CAM1": {
-    #         "Lattitude": 1.299810,
-    #         "Longitude": 103.862298,
-    #         "Num_people": 240
-    #     }...}
-
-    ###GET THE NUM_PEOPLE FOR EACH CAMERA FROM CV,
-    ### ABOVE SHOULD BE THE FORMAT BEFORE INPUTTING INTO MAP FUNCTION
-
-    # Run the map.py script to generate the map
-    # map.create_map(aoi,mrt,bus_stops,cameras)
-
-    # # Render the map in an iframe in the HTML template
-    # return render_template('index.html')
+    
 
 if __name__ == '__main__':
     app.run(debug=True)

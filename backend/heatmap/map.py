@@ -8,7 +8,7 @@ import branca.colormap as cm
 
 def create_map(aoi,mrt,bus_stops,cameras):
     # Load your GeoJSON file
-    with open('data/sg-2008.geojson') as f:
+    with open('heatmap/data/sg-2008.geojson') as f:
         geojson_data_sg = json.load(f)
 
     """BASE LAYER"""
@@ -89,7 +89,7 @@ def create_map(aoi,mrt,bus_stops,cameras):
     for info in cameras.values():
         lat_center = info['Lattitude']
         lon_center = info['Longitude']
-        num_people = info['Num_people']
+        num_people = info['Num_people'][1]
         
         for i in range(num_people):
             # Random angle and radius
@@ -123,7 +123,7 @@ def create_map(aoi,mrt,bus_stops,cameras):
     colormap.add_to(m)
 
     """"""
-    m.save('static/map.html')
+    m.save('heatmap/static/map.html')
 
 # This ensures that the function runs when the script is called directly
 if __name__ == "__main__":
