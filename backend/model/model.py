@@ -1,10 +1,10 @@
 import os
 import torch
 import numpy as np
-from src.crowd_count import CrowdCounter
+from .src.crowd_count import CrowdCounter
 import cv2
 import time
-from src import network
+from .src import network
 import subprocess
 
 
@@ -120,9 +120,9 @@ class CrowdDensityEstimator:
                 people_count = self.analyse_frame(writable_frame)
                 crowd_information = (camera,people_count)
 
-                cv2.putText(writable_frame, f'Count: {people_count}', (10, 30),
-                            cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
-                cv2.imshow('Frame', writable_frame)
+                # cv2.putText(writable_frame, f'Count: {people_count}', (10, 30),
+                #             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                # cv2.imshow('Frame', writable_frame)
                 
                 return crowd_information
 

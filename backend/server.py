@@ -19,7 +19,8 @@ def receive_data():
                                         # },...}
 
     """CV MODEL IS HEREEE"""
-    estimator = CrowdDensityEstimator(model_path='src/cmtl_shtechA_100.h5')
+    model_path = 'model/src/cmtl_shtechA_100.h5'
+    estimator = CrowdDensityEstimator(model_path)
     outputs = {}
     for camera in cameras_loc:
         video_path = cameras_loc[camera]['URL']
@@ -27,6 +28,12 @@ def receive_data():
         crowd = estimator.analyse_stream(video_path,camera)
         outputs[crowd[0]] = crowd[1]
 
+    return outputs
+
+@app.route('/hello', methods=['GET'])
+def hello():
+    message = "the server is saying hello"
+    return message
 
 
 
@@ -41,10 +48,10 @@ def receive_data():
     ### ABOVE SHOULD BE THE FORMAT BEFORE INPUTTING INTO MAP FUNCTION
 
     # Run the map.py script to generate the map
-    map.create_map(aoi,mrt,bus_stops,cameras)
+    # map.create_map(aoi,mrt,bus_stops,cameras)
 
-    # Render the map in an iframe in the HTML template
-    return render_template('index.html')
+    # # Render the map in an iframe in the HTML template
+    # return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
