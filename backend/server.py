@@ -5,7 +5,7 @@ from model.model import CrowdDensityEstimator
 app = Flask(__name__)
 
 
-@app.route('/create_map', methods=['POST'])
+@app.route('/create_map', methods=['GET'])
 def receive_data():
     data = request.get_json()
     mrt = data.get('mrt')   #mrt = {"City Hall": [1.293191026024169, 103.85165498556803],...}
