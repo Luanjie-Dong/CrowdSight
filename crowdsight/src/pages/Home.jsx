@@ -11,10 +11,8 @@ function Home(){
                 <div id="AOI">
                     
                     <h1 class="headers">Area of Interest</h1>
-                    <input type="text" class="AOI-input" placeholder="Longitude 1"/>
-                    <input type="text" class="AOI-input" placeholder="Latitude 1"/>
-                    <input type="text" class="AOI-input" placeholder="Longitude 2"/>
-                    <input type="text" class="AOI-input" placeholder="Longitude 2"/>
+                    <input type="text" class="AOI-input" placeholder="Longitude"/>
+                    <input type="text" class="AOI-input" placeholder="Latitude"/>
                 </div>
                 <div id="sitemap">
                     <h1 id="sitemapName" class="headers">Sitemap</h1>
