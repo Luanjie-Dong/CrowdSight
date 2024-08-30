@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import network
 from .models import CMTL
 import numpy as np
 
