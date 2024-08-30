@@ -1,6 +1,6 @@
 # CrowdSight
 
-<img src="./crowdsight/src/assets/Nomura%20A1%20(1).png" alt="CrowdSight Dashboard" width="600"/>
+![CrowdSight Dashboard](./crowdsight/src/assets/Nomura%20A1%20(1).png)
 
 ## Project Description
 
