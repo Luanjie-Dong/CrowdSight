@@ -54,7 +54,7 @@ class CrowdDensityEstimator:
                 break
 
             # Process every 5th frame
-            if frame_count % 20 == 0:
+            if frame_count % 30 == 0:
                 people_count = self.analyse_frame(frame)
                 total_count += people_count
                 print(people_count)
