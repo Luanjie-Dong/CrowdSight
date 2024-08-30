@@ -1,10 +1,9 @@
 import axios from "axios";
 import React from "react";
-
+import { Link } from 'react-router-dom';
 function Marker(){
     const submit = () => {
         event.preventDefault();
-        console.log('yay');
     }
     return(
         <>
@@ -23,14 +22,21 @@ function Marker(){
                        </div>
                    
                        <div class="sidebar">
+
                            <i id="icons" class="fa-solid fa-map"></i>
-                           <a href="#sitemap">Sitemap</a>
+                           <Link to={`/heatmap`}>
+                                Sitemap
+                            </Link>
                            <img src="crowdsight/src/assets/cctv.png" />
-                           <a href="#camera">Cameras</a>
+                           <Link to={`/camera`}>
+                                Cameras
+                            </Link>
                            <i id="icons"class="fa-solid fa-location-dot"></i>
-                           <a href="#Marker">Markers</a>
+                           <Link to={`/marker`}>
+                                Markers
+                            </Link>
                            <img id="logo"src="crowdsight/src/assets/Nomura A1 (1).png" />
-                         </div>
+                       </div>
 
            </body>
         </>

@@ -80,14 +80,21 @@ function Home(){
                         </form>
                     </div>
                     <div class="sidebar">
-                       <i id="icons" class="fa-solid fa-map"></i>
-                       <a href="#sitemap">Sitemap</a>
-                       <img src="crowdsight/src/assets/cctv.png" />
-                       <a href="#camera">Cameras</a>
-                       <i id="icons"class="fa-solid fa-location-dot"></i>
-                       <a href="#Marker">Markers</a>
-                       <img id="logo"src="crowdsight/src/assets/Nomura A1 (1).png" />
-                   </div>
+
+                           <i id="icons" class="fa-solid fa-map"></i>
+                           <Link to={`/heatmap`}>
+                                Sitemap
+                            </Link>
+                           <img src="crowdsight/src/assets/cctv.png" />
+                           <Link to={`/camera`}>
+                                Cameras
+                            </Link>
+                           <i id="icons"class="fa-solid fa-location-dot"></i>
+                           <Link to={`/marker`}>
+                                Markers
+                            </Link>
+                           <img id="logo"src="crowdsight/src/assets/Nomura A1 (1).png" />
+                       </div>
         </body>
 
         </>
