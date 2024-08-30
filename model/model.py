@@ -5,6 +5,7 @@ from src.crowd_count import CrowdCounter
 import cv2
 import time
 from src import network
+import subprocess
 
 class CrowdDensityEstimator:
     def __init__(self, model_path):
@@ -66,19 +67,62 @@ class CrowdDensityEstimator:
             # Analyze each frame
             people_count = self.analyse_frame(frame)
 
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+            print(people_count)
+
+        cap.release()
+        cv2.destroyAllWindows()
+
+    def analyse_stream(self, video_url):
+        # Use ffmpeg to capture the video stream from the URL
+        ffmpeg_command = [
+            'ffmpeg',
+            '-i', video_url,
+            '-an',  # Disable audio
+            '-f', 'rawvideo',
+            '-pix_fmt', 'bgr24',
+            '-'  # Output raw video to stdout
+        ]
+
+        print("Starting FFmpeg process...")
+        process = subprocess.Popen(ffmpeg_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        frame_width = 1920  # Adjust to the stream's resolution
+        frame_height = 1080  # Adjust to the stream's resolution
+        frame_size = frame_width * frame_height * 3  # For BGR format
+
+        while True:
+            raw_frame = process.stdout.read(frame_size)
+            if len(raw_frame) != frame_size:
+                print("Incomplete frame received, breaking the loop.")
+                break
+
+            frame = np.frombuffer(raw_frame, np.uint8).reshape((frame_height, frame_width, 3))
+
+            # Debugging: Print to verify if frames are being captured
+            print("Captured a frame")
+
+            # Create a writable copy of the frame
+            writable_frame = frame.copy()
+
+            # Analyze each frame
+            people_count = self.analyse_frame(writable_frame)
+
             # Optionally display the frame with the count
-            cv2.putText(frame, f'Count: {people_count}', (10, 30),
+            cv2.putText(writable_frame, f'Count: {people_count}', (10, 30),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
-            cv2.imshow('Frame', frame)
+            cv2.imshow('Frame', writable_frame)
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
-        cap.release()
+        process.terminate()
         cv2.destroyAllWindows()
 
 
 if __name__ == "__main__":
     estimator = CrowdDensityEstimator(model_path='src/cmtl_shtechA_100.h5')
-    video_path = "samples/crowd1.mp4"
-    estimator.analyse_video(video_path)
+    video_path = "https://hd-auth.skylinewebcams.com/live.m3u8?a=bpbpou8enfj3c4pleosn121gm1"
+    estimator.analyse_stream(video_path)
