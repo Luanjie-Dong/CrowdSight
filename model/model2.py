@@ -57,6 +57,7 @@ class CrowdDensityEstimator:
             if frame_count % 5 == 0:
                 people_count = self.analyse_frame(frame)
                 total_count += people_count
+                print(people_count)
 
                 # # Optionally display the frame with the count
                 # cv2.putText(frame, f'Count: {people_count}', (10, 30),
