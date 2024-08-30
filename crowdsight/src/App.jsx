@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Home from './pages/Home.jsx'
 import Heatmap from './pages/Heatmap.jsx'
+import Camera from './pages/Camera.jsx'
+import Marker from './pages/Markers.jsx'
 import React from 'react'
 import {
   createBrowserRouter,
@@ -19,6 +21,8 @@ function App() {
       >
         <Route index element={<Home />} />
         <Route path="heatmap" element={<Heatmap />} />
+        <Route path="camera" element={<Camera />} />
+        <Route path="marker" element={<Marker />} />
       </Route>,
       
     ),
