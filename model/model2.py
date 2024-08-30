@@ -47,17 +47,19 @@ class CrowdDensityEstimator:
         cap = cv2.VideoCapture(video_path)
         total_count = 0
         frame_count = 0
+        analysed_frames = 0
 
         while cap.isOpened():
             ret, frame = cap.read()
             if not ret:
                 break
 
-            # Process every 5th frame
-            if frame_count % 30 == 0:
+           
+            if frame_count % 60  == 0:
                 people_count = self.analyse_frame(frame)
                 total_count += people_count
-                print(video_path,people_count)
+                print(people_count)
+
                 # # Optionally display the frame with the count
                 # cv2.putText(frame, f'Count: {people_count}', (10, 30),
                 #             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
@@ -71,16 +73,16 @@ class CrowdDensityEstimator:
         cap.release()
         cv2.destroyAllWindows()
 
-        return total_count
+        return analysed_frames, total_count
 
     def analyse_videos_concurrently(self, video_paths):
-        with ThreadPoolExecutor() as executor:
+        with ThreadPoolExecutor(max_workers=2) as executor:  # Limit to 2 concurrent threads
             future_to_video = {executor.submit(self.analyse_video, video_path): video_path for video_path in video_paths}
             for future in as_completed(future_to_video):
                 video_path = future_to_video[future]
                 try:
-                    total_count = future.result()
-                    print(f"Total people counted in {video_path}: {total_count}")
+                    analysed_frames, total_count = future.result()
+                    print(f"Total people counted in {video_path}: {total_count} over {analysed_frames} frames")
                 except Exception as exc:
                     print(f"{video_path} generated an exception: {exc}")
 
