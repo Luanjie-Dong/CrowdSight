@@ -6,14 +6,17 @@ import cv2
 import time
 from src import network
 import subprocess
+from flask_socketio import SocketIO
+
 
 class CrowdDensityEstimator:
-    def __init__(self, model_path):
+    def __init__(self, model_path, socketio=None):
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         torch.backends.cudnn.enabled = False
         self.model = self.load_model(model_path)
         self.model.to(self.device)
         self.model.eval()
+        self.socketio = socketio
 
     def load_model(self, model_path):
         net = CrowdCounter()
@@ -115,6 +118,9 @@ class CrowdDensityEstimator:
                 writable_frame = frame.copy()
 
                 people_count = self.analyse_frame(writable_frame)
+                crowd_information = {camera:people_count}
+                if self.socketio:
+                    self.socketio.emit('crowd_count', crowd_information)
 
                 # #display to see what is analysed
                 # cv2.putText(writable_frame, f'Count: {people_count}', (10, 30),
@@ -129,8 +135,8 @@ class CrowdDensityEstimator:
         process.terminate()
         cv2.destroyAllWindows()
 
-        def outcome():
-            
+        
+
 
 if __name__ == "__main__":
     estimator = CrowdDensityEstimator(model_path='src/cmtl_shtechA_100.h5')
