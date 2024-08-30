@@ -1,25 +1,29 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate, Link } from "react-router-dom";
 function Home(){
-    function submit(){
+    const endpoint = import.meta.env.VITE_MONGODB_ENDPOINT + "/action/insertOne"
+    const apikey = import.meta.env.VITE_MONGODB_API_KEY;
+    const navigate = useNavigate();
+
+    const submit = () => {
         event.preventDefault();
         const AOI_long = document.getElementById("AOI-long").value;
         const AOI_lat = document.getElementById("AOI-lat").value;
         const sitemap_file = document.getElementById("file-input");
-        const endpoint = import.meta.env.VITE_MONGODB_ENDPOINT + "/action/insertOne"
-        const apikey = import.meta.env.VITE_MONGODB_API_KEY + "/action/insertOne"
-        const navigate = useNavigate();
 
-        const data = json.stringify({
-            "dataSource":"mongodb-atlas",
+        const data = JSON.stringify({
+            "dataSource":"ESGeePeeTee",
             "database" : "crowdsight",
-            "collections" : "AOI",
+            "collection" : "aoi",
             "document":{
                 "longitude": AOI_long,
                 "latitude": AOI_lat,
-                "sitemap_file": sitemap_file
-            }
+                // "sitemap_file": sitemap_file
+            },
         })
+
+        console.log(data);
 
         const config = {
             method: 'post',
@@ -36,9 +40,9 @@ function Home(){
             // Access the array of documents directly from response.data
             if (response.data.document !== null) {
                 console.log('successful');
-              navigate('/Heatmap');
+                navigate('/heatmap');
             } else {
-              alert("Couldn't find company. Have you entered the right name?");
+              alert("AOI not saved");
             }
         })
     

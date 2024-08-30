@@ -66,3 +66,7 @@ button{
     border-width: 0;
 }
 
+#heatmap {
+    height: 90%;
+    width: 90%;
+}
