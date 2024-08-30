@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request
 # import subprocess
-import map
+from heatmap import map
+from flask_socketio import SocketIO
+from model.model import CrowdDensityEstimator
 
 app = Flask(__name__)
+
 
 @app.route('/create_map', methods=['POST'])
 def receive_data():
@@ -17,6 +20,15 @@ def receive_data():
                                         #     "URL": http.....
                                         # },...}
     """RUN CV MODEL HERE USING camera_loc URL"""
+
+    estimator = CrowdDensityEstimator(model_path='src/cmtl_shtechA_100.h5')
+    for camera in cameras_loc:
+        video_path = cameras_loc[camera]['URL']
+        camera = camera
+        estimator.analyse_stream(video_path,camera)
+
+
+
     # cameras={
     #     "CAM1": {
     #         "Lattitude": 1.299810,
