@@ -57,8 +57,7 @@ class CrowdDensityEstimator:
             if frame_count % 30 == 0:
                 people_count = self.analyse_frame(frame)
                 total_count += people_count
-                print(people_count)
-
+                print(video_path,people_count)
                 # # Optionally display the frame with the count
                 # cv2.putText(frame, f'Count: {people_count}', (10, 30),
                 #             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
