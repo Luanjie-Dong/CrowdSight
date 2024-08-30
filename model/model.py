@@ -80,7 +80,9 @@ class CrowdDensityEstimator:
         ffmpeg_command = [
             'ffmpeg',
             '-i', video_url,
+            '-vf', 'scale=640:480',  # Scale the video to 640x360 resolution
             '-an',  # Disable audio
+            '-r', '10',  # Reduce frame rate to 10 FPS
             '-f', 'rawvideo',
             '-pix_fmt', 'bgr24',
             '-'  # Output raw video to stdout
@@ -89,17 +91,19 @@ class CrowdDensityEstimator:
         print("Starting FFmpeg process...")
         process = subprocess.Popen(ffmpeg_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        frame_width = 1080  # Adjust to the stream's resolution
-        frame_height = 1920  # Adjust to the stream's resolution
+        frame_width = 640  # Adjust to the downscaled resolution
+        frame_height = 480  # Adjust to the downscaled resolution
         frame_size = frame_width * frame_height * 3  # For BGR format
 
+        buffer = b''
         while True:
-            raw_frame = process.stdout.read(frame_size)
-            if len(raw_frame) != frame_size:
+            buffer += process.stdout.read(frame_size - len(buffer))
+            if len(buffer) < frame_size:
                 print("Incomplete frame received, breaking the loop.")
                 break
 
-            frame = np.frombuffer(raw_frame, np.uint8).reshape((frame_height, frame_width, 3))
+            frame = np.frombuffer(buffer[:frame_size], np.uint8).reshape((frame_height, frame_width, 3))
+            buffer = buffer[frame_size:]  # Keep any extra data
 
             # Debugging: Print to verify if frames are being captured
             print("Captured a frame")
