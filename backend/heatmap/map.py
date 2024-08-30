@@ -123,7 +123,7 @@ def create_map(aoi,mrt,bus_stops,cameras):
     colormap.add_to(m)
 
     """"""
-    m.save('heatmap/static/map.html')
+    m.save('templates/map.html')
 
 # This ensures that the function runs when the script is called directly
 if __name__ == "__main__":

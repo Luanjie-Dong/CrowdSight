@@ -1,31 +1,27 @@
 from flask import Flask, render_template, request
 from heatmap import map
 from model.model import CrowdDensityEstimator
+from data import map_data
+from flask_cors import CORS 
+
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/create_map', methods=['GET'])
-def receive_data():
-    data = request.get_json()
-    mrt = data.get('mrt')   #mrt = {"City Hall": [1.293191026024169, 103.85165498556803],...}
-    bus_stops = data.get('bus_stops') #bus_stops = {"Suntec City": [1.2923858977559841, 103.85182924546],...}
-    aoi=data.get('aoi') #[long,lat]
-    cameras_loc=data.get('cameras') #cameras_loc = {
-                                        # "CAM1": {
-                                        #     "Lattitude": 1.299810,
-                                        #     "Longitude": 103.862298,
-                                        #     "URL": http.....
-                                        # },...}
+def receive_map():
+    
+    aoi , cctv , bus , mrt = map_data()
 
     """CV MODEL IS HEREEE"""
     model_path = 'model/src/cmtl_shtechA_100.h5'
     estimator = CrowdDensityEstimator(model_path)
     cameras = {}
-    for camera in cameras_loc:
-        video_path = cameras_loc[camera]['URL']
-        long = cameras_loc[camera]['Longitude']
-        lat = cameras_loc[camera]['Lattitude']
+    for camera in cctv:
+        video_path = cctv[camera]['URL']
+        long = cctv[camera]['Longitude']
+        lat = cctv[camera]['Lattitude']
         camera = camera
         crowd = estimator.analyse_stream(video_path,camera)
         cameras[crowd[0]] = {"Longitude":long,"Lattitude":lat,"Num_people":crowd}
@@ -34,11 +30,11 @@ def receive_data():
     ### ABOVE SHOULD BE THE FORMAT BEFORE INPUTTING INTO MAP FUNCTION
 
     # Run the map.py script to generate the map
-    map.create_map(aoi,mrt,bus_stops,cameras)
+    map.create_map(aoi,mrt,bus,cameras)
 
     # return  "MAP IS GOOD"
     # # Render the map in an iframe in the HTML template
-    return render_template('index.html')
+    return render_template('map.html')
 
 
     
