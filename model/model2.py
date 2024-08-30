@@ -54,7 +54,7 @@ class CrowdDensityEstimator:
                 break
 
             # Process every 5th frame
-            if frame_count % 5 == 0:
+            if frame_count % 20 == 0:
                 people_count = self.analyse_frame(frame)
                 total_count += people_count
                 print(people_count)
@@ -87,6 +87,5 @@ class CrowdDensityEstimator:
 
 if __name__ == "__main__":
     estimator = CrowdDensityEstimator(model_path='src/cmtl_shtechA_100.h5')
-    video_paths = ["samples/crowd1.mp4", "samples/crowd2.mp4", "samples/crowd3.mp4",  # Add all 10 video paths here
-                   "samples/crowd4.mp4"]
+    video_paths = ["samples/crowd1.mp4", "samples/crowd2.mp4"]
     estimator.analyse_videos_concurrently(video_paths)
