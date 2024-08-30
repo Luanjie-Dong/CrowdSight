@@ -6,14 +6,17 @@ import folium
 from folium.plugins import HeatMap  
 import branca.colormap as cm
 
-def create_map():
+def create_map(aoi,mrt,bus_stops,cameras):
     # Load your GeoJSON file
     with open('data/sg-2008.geojson') as f:
         geojson_data_sg = json.load(f)
 
     """BASE LAYER"""
     # Initialize the map centered around the same coordinates with a similar zoom level
-    m = folium.Map(location=[1.291648, 103.858459], zoom_start=15, tiles="cartodb positron")
+    aoi_lat=aoi[0]
+    aoi_long=aoi[1]
+    m = folium.Map(location=[aoi_lat, aoi_long], zoom_start=15, tiles="cartodb positron")
+    #1.291648, 103.858459
     """"""
 
     """SITE MAP"""
@@ -26,12 +29,12 @@ def create_map():
 
     """MARKER LAYER"""
     ##MRT##
-    mrt = {
-        "City Hall": [1.293191026024169, 103.85165498556803],
-        "Promenade": [1.2941545600857782, 103.86030346981188],
-        "Esplanade": [1.2942208358078537, 103.8556156333854],
-        "Nicoll Highway": [1.300926176540319, 103.8636853229336]
-    }
+    # mrt = {
+    #     "City Hall": [1.293191026024169, 103.85165498556803],
+    #     "Promenade": [1.2941545600857782, 103.86030346981188],
+    #     "Esplanade": [1.2942208358078537, 103.8556156333854],
+    #     "Nicoll Highway": [1.300926176540319, 103.8636853229336]
+    # }
 
     for station, coords in mrt.items():
         folium.Marker(
@@ -42,10 +45,10 @@ def create_map():
     ###END###
         
     ###BUS STOPS###
-    bus_stops = {
-        "Aft City Hall Stn Exit B": [1.2923858977559841, 103.85182924546],
-        "Suntec City": [1.2961185801465722, 103.8579983262912]
-    }
+    # bus_stops = {
+    #     "Aft City Hall Stn Exit B": [1.2923858977559841, 103.85182924546],
+    #     "Suntec City": [1.2961185801465722, 103.8579983262912]
+    # }
 
     for stop, coords in bus_stops.items():
         folium.Marker(
@@ -57,28 +60,28 @@ def create_map():
         
     """HEATMAP LAYER"""
     # Add Cameras with continuous color scale based on density
-    cameras = {
-        "Gate 1": {
-            "Lattitude": 1.299810,
-            "Longitude": 103.862298,
-            "Num_people": 240
-        },
-        "Gate 2": {
-            "Lattitude": 1.291419,
-            "Longitude": 103.860814,
-            "Num_people": 100
-        },
-        "Gate 3A": {
-            "Lattitude": 1.293067,
-            "Longitude": 103.85422,
-            "Num_people": 400
-        },
-        "Gate 3B": {
-            "Lattitude":1.293668,
-            "Longitude":103.854485,
-            "Num_people":134
-        }
-    }
+    # cameras = {
+    #     "Gate 1": {
+    #         "Lattitude": 1.299810,
+    #         "Longitude": 103.862298,
+    #         "Num_people": 240
+    #     },
+    #     "Gate 2": {
+    #         "Lattitude": 1.291419,
+    #         "Longitude": 103.860814,
+    #         "Num_people": 100
+    #     },
+    #     "Gate 3A": {
+    #         "Lattitude": 1.293067,
+    #         "Longitude": 103.85422,
+    #         "Num_people": 400
+    #     },
+    #     "Gate 3B": {
+    #         "Lattitude":1.293668,
+    #         "Longitude":103.854485,
+    #         "Num_people":134
+    #     }
+    # }
 
     locations= []
     radius = 0.0005  # Adjust the radius to control the spread of people around the point
