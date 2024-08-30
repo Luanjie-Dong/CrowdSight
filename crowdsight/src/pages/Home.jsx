@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 function Home(){
+
+
     const endpoint = import.meta.env.VITE_MONGODB_ENDPOINT + "/action/insertOne"
     const apikey = import.meta.env.VITE_MONGODB_API_KEY;
     const navigate = useNavigate();
@@ -60,8 +62,8 @@ function Home(){
                         <div id="text">
             
                             <h1 class="headers">Area of Interest</h1>
-                            <input type="text" id='AOI-long' class="container textvalue" placeholder="Longitude"/>
                             <input type="text" id='AOI-lat'class="container textvalue" placeholder="Latitude"/>
+                            <input type="text" id='AOI-long' class="container textvalue" placeholder="Longitude"/>
                         </div>
                         <div id="sitemap">
                             <h1 id="sitemapName" class="headers">Sitemap</h1>
@@ -85,7 +87,7 @@ function Home(){
                            <Link to={`/heatmap`}>
                                 Sitemap
                             </Link>
-                           <img src="crowdsight/src/assets/cctv.png" />
+                            <i id="icons"class="fa-solid fa-video"></i>
                            <Link to={`/camera`}>
                                 Cameras
                             </Link>
