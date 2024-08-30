@@ -102,6 +102,7 @@ class CrowdDensityEstimator:
 
         buffer = b''
         frame_count = 0
+
         while True:
             buffer += process.stdout.read(frame_size - len(buffer))
             if len(buffer) < frame_size:
@@ -119,8 +120,8 @@ class CrowdDensityEstimator:
 
                 people_count = self.analyse_frame(writable_frame)
                 crowd_information = {camera:people_count}
-                if self.socketio:
-                    self.socketio.emit('crowd_count', crowd_information)
+                
+                return crowd_information
 
                 # #display to see what is analysed
                 # cv2.putText(writable_frame, f'Count: {people_count}', (10, 30),
@@ -140,5 +141,6 @@ class CrowdDensityEstimator:
 
 if __name__ == "__main__":
     estimator = CrowdDensityEstimator(model_path='src/cmtl_shtechA_100.h5')
+    camera = 'camera1'
     video_path = "https://hd-auth.skylinewebcams.com/live.m3u8?a=bpbpou8enfj3c4pleosn121gm1"
-    estimator.analyse_stream(video_path)
+    estimator.analyse_stream(video_path,camera)

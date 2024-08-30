@@ -5,7 +5,6 @@ from flask_socketio import SocketIO
 from model.model import CrowdDensityEstimator
 
 app = Flask(__name__)
-socketio = SocketIO(app)
 
 
 @app.route('/create_map', methods=['POST'])
@@ -22,9 +21,13 @@ def receive_data():
                                         # },...}
     """RUN CV MODEL HERE USING camera_loc URL"""
 
-    estimator = CrowdDensityEstimator(model_path='src/cmtl_shtechA_100.h5',socketio=socketio)
-    video_path = "https://hd-auth.skylinewebcams.com/live.m3u8?a=bpbpou8enfj3c4pleosn121gm1"
-    estimator.analyse_stream(video_path)
+    estimator = CrowdDensityEstimator(model_path='src/cmtl_shtechA_100.h5')
+    for camera in cameras_loc:
+        video_path = cameras_loc[camera]['URL']
+        camera = camera
+        estimator.analyse_stream(video_path,camera)
+
+
 
     # cameras={
     #     "CAM1": {
