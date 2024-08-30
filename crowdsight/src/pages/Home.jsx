@@ -13,15 +13,17 @@ function Home(){
         const sitemap_file = document.getElementById("file-input");
 
         const data = JSON.stringify({
-            "dataSource":"mongodb-atlas",
+            "dataSource":"ESGeePeeTee",
             "database" : "crowdsight",
-            "collections" : "AOI",
+            "collection" : "aoi",
             "document":{
                 "longitude": AOI_long,
                 "latitude": AOI_lat,
                 // "sitemap_file": sitemap_file
-            }
+            },
         })
+
+        console.log(data);
 
         const config = {
             method: 'post',
@@ -40,7 +42,7 @@ function Home(){
                 console.log('successful');
                 navigate('/heatmap');
             } else {
-              alert("Couldn't find company. Have you entered the right name?");
+              alert("AOI not saved");
             }
         })
     
