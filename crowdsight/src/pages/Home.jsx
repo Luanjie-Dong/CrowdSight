@@ -52,31 +52,44 @@ function Home(){
 
     }
     return(
-        <> 
-            <div id="content">
-                <form action="#">
-                <div id="AOI">
-                    
-                    <h1 class="headers">Area of Interest</h1>
-                    <input type="text" id='AOI-long' class="AOI-input" placeholder="Longitude"/>
-                    <input type="text" id='AOI-lat'class="AOI-input" placeholder="Latitude"/>
-                </div>
-                <div id="sitemap">
-                    <h1 id="sitemapName" class="headers">Sitemap</h1>
-                    <div id="site">
-                    
-                    <label for="file-input">
-                        <div>
-                            <i id="icons" class="fa-solid fa-cloud-arrow-up"></i>
-                            <p>Browse file to upload</p>
+        <>  
+        
+        <body id="home">
+                    <div id="content">
+                        <form action="#">
+                        <div id="text">
+            
+                            <h1 class="headers">Area of Interest</h1>
+                            <input type="text" id='AOI-long' class="container textvalue" placeholder="Longitude"/>
+                            <input type="text" id='AOI-lat'class="container textvalue" placeholder="Latitude"/>
                         </div>
-                    </label >
+                        <div id="sitemap">
+                            <h1 id="sitemapName" class="headers">Sitemap</h1>
+                            <div id="site">
+            
+                            <label for="file-input">
+                                <div>
+                                    <i id="icons" class="fa-solid fa-cloud-arrow-up"></i>
+                                    <p>Browse file to upload</p>
+                                </div>
+                            </label >
+                            </div>
+                            <input type="file" class="sitemap-input" id="file-input" hidden/>
+                        </div>
+                        <button class="container generate" onClick={submit}>Generate Heatmap</button>
+                        </form>
                     </div>
-                    <input type="file" class="sitemap-input" id="file-input" hidden/>
-                </div>
-                <button onClick={submit}>Generate Heatmap</button>
-                </form>
-            </div>
+                    <div class="sidebar">
+                       <i id="icons" class="fa-solid fa-map"></i>
+                       <a href="#sitemap">Sitemap</a>
+                       <img src="crowdsight/src/assets/cctv.png" />
+                       <a href="#camera">Cameras</a>
+                       <i id="icons"class="fa-solid fa-location-dot"></i>
+                       <a href="#Marker">Markers</a>
+                       <img id="logo"src="crowdsight/src/assets/Nomura A1 (1).png" />
+                   </div>
+        </body>
+
         </>
     )
 }
