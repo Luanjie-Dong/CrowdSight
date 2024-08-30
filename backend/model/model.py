@@ -119,7 +119,7 @@ class CrowdDensityEstimator:
                 writable_frame = frame.copy()
 
                 people_count = self.analyse_frame(writable_frame)
-                crowd_information = {camera:people_count}
+                crowd_information = (camera,people_count)
                 
                 return crowd_information
 

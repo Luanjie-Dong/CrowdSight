@@ -19,13 +19,16 @@ def receive_data():
                                         #     "Longitude": 103.862298,
                                         #     "URL": http.....
                                         # },...}
-    """RUN CV MODEL HERE USING camera_loc URL"""
 
+    """CV MODEL IS HEREEE"""
     estimator = CrowdDensityEstimator(model_path='src/cmtl_shtechA_100.h5')
+    outputs = {}
     for camera in cameras_loc:
         video_path = cameras_loc[camera]['URL']
         camera = camera
-        estimator.analyse_stream(video_path,camera)
+        crowd = estimator.analyse_stream(video_path,camera)
+        outputs[crowd[0]] = crowd[1]
+
 
 
 
