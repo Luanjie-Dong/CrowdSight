@@ -17,46 +17,48 @@ def map_data(map_information):
         "dataSource": "ESGeePeeTee",
         "database": "crowdsight",
         "collection": "aoi",
-        "filter": {"company": company_data['company']}
+        "filter": {"status": "active"}
     }
 
     get_cctv = {
         "dataSource": "ESGeePeeTee",
         "database": "crowdsight",
         "collection": "cctv",
-        "filter": {"company": company_data['company']}
+        "filter": {"status": "active"}
     }
 
     get_marker = {
         "dataSource": "ESGeePeeTee",
         "database": "crowdsight",
         "collection": "marker",
-        "filter": {"company": company_data['company']}
+        "filter": {"status": "active"}
     }
 
     
 
     try:
         # Get AOI
-        response = requests.post(get_url, headers=headers, json=get_aoi)
-        if response.status_code == 200:
-            response_data = response.json()
-            aoi_lat = response_data[0]["lattitude"]
-            aoi_lot = response_data[0]["longitude"]
+        aoi_response = requests.post(get_url, headers=headers, json=get_aoi)
+        if aoi_response.status_code == 200:
+            aoi_response_data = aoi_response.json()
+            aoi_lat = aoi_response_data[0]["lattitude"]
+            aoi_lot = aoi_response_data[0]["longitude"]
         
         #Get CCTV
-        response = requests.post(get_url, headers=headers, json=get_cctv)
-        if response.status_code == 200:
-            response_data = response.json()
-            aoi_lat = response_data[0]["lattitude"]
-            aoi_lot = response_data[0]["longitude"]
+        cctv_response = requests.post(get_url, headers=headers, json=get_cctv)
+        if cctv_response.status_code == 200:
+            cctv_response_data = cctv_response.json()
+            cctv_name = cctv_response_data[0]["name"]
+            cctv_lat = cctv_response_data[0]["lattitude"]
+            cctv_lot = cctv_response_data[0]["longitude"]
+            cctv_url = cctv_response_data[0]["url"]
 
         #Get marker
-        response = requests.post(get_url, headers=headers, json=get_marker)
-        if response.status_code == 200:
-            response_data = response.json()
-            aoi_lat = response_data[0]["lattitude"]
-            aoi_lot = response_data[0]["longitude"]
+        marker_response = requests.post(get_url, headers=headers, json=get_marker)
+        if marker_response.status_code == 200:
+            marker_response_data = marker_response.json()
+            aoi_lat = marker_response_data[0]["lattitude"]
+            aoi_lot = marker_response_data[0]["longitude"]
         
 
     except Exception as e:
