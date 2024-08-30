@@ -6,7 +6,6 @@ import cv2
 import time
 from src import network
 import subprocess
-from flask_socketio import SocketIO
 
 
 class CrowdDensityEstimator:
