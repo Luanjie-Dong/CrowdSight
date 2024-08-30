@@ -7,7 +7,8 @@ API_KEY = 'KdrhLZMfd335dURL2AUB2Tbtav6SCdtCBdbyrBRX1OwFHzd2H4rEtG1YKzgtD8o9'
 get_url = f'{endpoint_url}/find'
 
 
-def map_data(map_information):
+def map_data():
+
     headers = {
         'Content-Type': 'application/json',
         'api-key': API_KEY
@@ -17,61 +18,83 @@ def map_data(map_information):
         "dataSource": "ESGeePeeTee",
         "database": "crowdsight",
         "collection": "aoi",
-        "filter": {"status": "active"}
+        "filter": {}
     }
 
     get_cctv = {
         "dataSource": "ESGeePeeTee",
         "database": "crowdsight",
         "collection": "cctv",
-        "filter": {"status": "active"}
+        "filter": {}
     }
 
     get_marker = {
         "dataSource": "ESGeePeeTee",
         "database": "crowdsight",
         "collection": "marker",
-        "filter": {"status": "active"}
+        "filter": {}
     }
 
-    
+    aoi = []
+    cctv_array = []
+    bus_array = []
+    mrt_array = []
 
     try:
         # Get AOI
         aoi_response = requests.post(get_url, headers=headers, json=get_aoi)
         if aoi_response.status_code == 200:
-            aoi_response_data = aoi_response.json()
-            aoi_lat = aoi_response_data[0]["lattitude"]
+            print("AOI data accessed")
+            aoi_response_data = aoi_response.json()['documents']
+            # print(aoi_response_data)
+            aoi_lat = aoi_response_data[0]["latitude"]
             aoi_lot = aoi_response_data[0]["longitude"]
+            aoi = [aoi_lat,aoi_lot]
         
         #Get CCTV
         cctv_response = requests.post(get_url, headers=headers, json=get_cctv)
         if cctv_response.status_code == 200:
-            cctv_response_data = cctv_response.json()
-            cctv_name = cctv_response_data[0]["name"]
-            cctv_lat = cctv_response_data[0]["lattitude"]
-            cctv_lot = cctv_response_data[0]["longitude"]
-            cctv_url = cctv_response_data[0]["url"]
+            print("CCTV data accessed")
+            cctv_response_data = cctv_response.json()['documents']
+            # print(cctv_response_data)
+            cctv_array = {}
+            for cctv in cctv_response_data:
+                cctv_name = cctv["name"]
+                cctv_lat = cctv["latitude"]
+                cctv_lot = cctv["longitude"]
+                cctv_url = cctv["url"]
+                cctv_array[cctv_name] = {"Lattitude":cctv_lat,"Longitude":cctv_lat,"URL":cctv_url}
 
         #Get marker
         marker_response = requests.post(get_url, headers=headers, json=get_marker)
         if marker_response.status_code == 200:
-            marker_response_data = marker_response.json()
-            aoi_lat = marker_response_data[0]["lattitude"]
-            aoi_lot = marker_response_data[0]["longitude"]
-        
-
+            print("Marker data accessed")
+            marker_response_data = marker_response.json()['documents']
+            # print(marker_response_data)
+            bus_array = {}
+            mrt_array = {}
+            for marker in marker_response_data:
+                marker_name = marker["label"]
+                marker_lat = marker["latitude"]
+                marker_lon = marker["longitude"]
+                marker_type = marker["type"]
+                if marker_type == 'bus_stop':
+                    bus_array[marker_name] = [marker_lat,marker_lon]
+                else:
+                    mrt_array[marker_name] = [marker_lat,marker_lon]
     except Exception as e:
         print(f"An error occurred: {e}")
 
+
+    return aoi , cctv_array , bus_array , mrt_array
+
+
+
+
 if __name__ == "__main__":
     # Example company data to update or store
-    company_data = {'company': 'Boeing', 
-                    'industry': 'AIR', 
-                    'total_score': 22, 
-                    'environmental': {'score': 8, 'dimension_total': 35}, 
-                    'social': {'score': 8, 'dimension_total': 37}, 
-                    'governance': {'score': 6, 'dimension_total': 28}, 
-                    'timestamp': '2024-07-22'}
-
-    store_or_update_esg_scores(company_data)
+    aoi , cctv , bus , mrt = map_data()
+    print(aoi)
+    print(cctv)
+    print(bus)
+    print(mrt)
