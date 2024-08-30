@@ -89,8 +89,8 @@ class CrowdDensityEstimator:
         print("Starting FFmpeg process...")
         process = subprocess.Popen(ffmpeg_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        frame_width = 1920  # Adjust to the stream's resolution
-        frame_height = 1080  # Adjust to the stream's resolution
+        frame_width = 1080  # Adjust to the stream's resolution
+        frame_height = 1920  # Adjust to the stream's resolution
         frame_size = frame_width * frame_height * 3  # For BGR format
 
         while True:
