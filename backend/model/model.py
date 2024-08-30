@@ -120,16 +120,13 @@ class CrowdDensityEstimator:
 
                 people_count = self.analyse_frame(writable_frame)
                 crowd_information = (camera,people_count)
+
+                cv2.putText(writable_frame, f'Count: {people_count}', (10, 30),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                cv2.imshow('Frame', writable_frame)
                 
                 return crowd_information
 
-                # #display to see what is analysed
-                # cv2.putText(writable_frame, f'Count: {people_count}', (10, 30),
-                #             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
-                # cv2.imshow('Frame', writable_frame)
-
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break
 
             frame_count += 1
 
