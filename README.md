@@ -1,6 +1,6 @@
 # CrowdSight
 
-![CrowdSight Dashboard](./crowdsight/src/assets/Nomura A1 (1).png)
+![CrowdSight Dashboard](./crowdsight/src/assets/Nomura%20A1%20(1).png)
 
 ## Project Description
 
