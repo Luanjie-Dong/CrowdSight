@@ -22,9 +22,8 @@ def receive_map():
         video_path = cctv[camera]['URL']
         long = cctv[camera]['Longitude']
         lat = cctv[camera]['Lattitude']
-        camera = camera
         crowd = estimator.analyse_stream(video_path,camera)
-        cameras[crowd[0]] = {"Longitude":long,"Lattitude":lat,"Num_people":crowd}
+        cameras[camera] = {"Longitude":long,"Lattitude":lat,"Num_people":crowd[1]}
 
     ###GET THE NUM_PEOPLE FOR EACH CAMERA FROM CV,
     ### ABOVE SHOULD BE THE FORMAT BEFORE INPUTTING INTO MAP FUNCTION

@@ -89,7 +89,7 @@ def create_map(aoi,mrt,bus_stops,cameras):
     for info in cameras.values():
         lat_center = info['Lattitude']
         lon_center = info['Longitude']
-        num_people = info['Num_people'][1]
+        num_people = info['Num_people']
         
         for i in range(num_people):
             # Random angle and radius
