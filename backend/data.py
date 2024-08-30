@@ -63,7 +63,7 @@ def map_data():
                 cctv_lat = cctv["latitude"]
                 cctv_lot = cctv["longitude"]
                 cctv_url = cctv["url"]
-                cctv_array[cctv_name] = {"Lattitude":cctv_lat,"Longitude":cctv_lat,"URL":cctv_url}
+                cctv_array[cctv_name] = {"Lattitude":cctv_lat,"Longitude":cctv_lot,"URL":cctv_url}
 
         #Get marker
         marker_response = requests.post(get_url, headers=headers, json=get_marker)

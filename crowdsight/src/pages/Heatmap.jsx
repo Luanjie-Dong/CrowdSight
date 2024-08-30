@@ -3,6 +3,7 @@ import React from "react";
 
 function Heatmap(){
     const backend_endpoint = import.meta.env.VITE_BACKEND_ENDPOINT + "/create_map";
+    var map_html = null;
 
     const config = {
         method: 'get',
@@ -13,11 +14,12 @@ function Heatmap(){
     .then((response) => {
         if (response.data !== null) {
             console.log("heatmap successfully retrieved");
-            const map_html = response.data;
+            map_html = response.data;
         } else {
             alert("failed to retrieve heatmap");
         }
     })
+
 
     return(
         <>
