@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Home from './pages/Home.jsx'
 import Heatmap from './pages/Heatmap.jsx'
+import React from 'react'
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -17,7 +18,7 @@ function App() {
         path="/"
       >
         <Route index element={<Home />} />
-        <Route element={<Heatmap />} />
+        <Route path="heatmap" element={<Heatmap />} />
       </Route>,
       
     ),
