@@ -138,5 +138,5 @@ class CrowdDensityEstimator:
 if __name__ == "__main__":
     estimator = CrowdDensityEstimator(model_path='src/cmtl_shtechA_100.h5')
     camera = 'camera1'
-    video_path = "https://hd-auth.skylinewebcams.com/live.m3u8?a=bpbpou8enfj3c4pleosn121gm1"
+    video_path = "https://hd-auth.skylinewebcams.com/live.m3u8?a=jjhlk38l8jh78mcrpbti0pmnd0"
     estimator.analyse_stream(video_path,camera)
