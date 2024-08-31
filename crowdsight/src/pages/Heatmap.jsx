@@ -30,9 +30,10 @@ function Heatmap(){
 
     return (
         <>
-            {mapHtml ? <iframe srcDoc={mapHtml} width={1600} height={800}/> : <p>Loading heatmap...</p>}
 
             <body id="home">
+                {mapHtml ? <iframe srcDoc={mapHtml} width={1600} height={800}/> : <p>Loading heatmap...</p>}
+
                 <div class="sidebar">
                     <i id="icons" class="fa-solid fa-map"></i>
                     <Link to={`/heatmap`}>
