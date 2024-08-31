@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { Link } from 'react-router-dom';
 
-async function Camera(){
+function Camera(){
     const endpoint = import.meta.env.VITE_MONGODB_ENDPOINT + "/action/find"
     const apikey = import.meta.env.VITE_MONGODB_API_KEY;
     var camera_data = null;
