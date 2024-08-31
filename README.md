@@ -18,3 +18,14 @@ This project utilizes a vision model based on the work of Sindagi, V. A., & Pate
 
 ### Frontend
 - **CrowdSight**: The frontend code that powers the dashboard, providing the view of the event map with the crowd density heatmap.
+
+To run the application:
+1: ensure that ffmpeg is downloaded 
+    for mac , run brew install ffmpeg in the terminal
+    for windows, download from the link here https://www.ffmpeg.org/download.html
+
+2: go to the crowdsight folder and use npm run dev to start the frontend server
+
+3: go to the backend folder use python server.py to start the backend server
+
+4: go to http://localhost:5173/ in your web browser to access the app, you may need to use a private browser as certain extentions block some of the function in our app
