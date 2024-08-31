@@ -1,4 +1,3 @@
-import os
 import torch
 import numpy as np
 from .src.crowd_count import CrowdCounter
@@ -9,13 +8,12 @@ import subprocess
 
 
 class CrowdDensityEstimator:
-    def __init__(self, model_path, socketio=None):
+    def __init__(self, model_path):
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         torch.backends.cudnn.enabled = False
         self.model = self.load_model(model_path)
         self.model.to(self.device)
         self.model.eval()
-        self.socketio = socketio
 
     def load_model(self, model_path):
         net = CrowdCounter()
@@ -78,6 +76,7 @@ class CrowdDensityEstimator:
         cv2.destroyAllWindows()
 
     def analyse_stream(self, video_url,camera, analyze_interval=5):
+        
         # Use ffmpeg to capture the video stream from the URL
         ffmpeg_command = [
             'ffmpeg',
