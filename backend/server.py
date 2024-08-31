@@ -20,11 +20,15 @@ def receive_map():
         estimator = CrowdDensityEstimator(model_path)
         cameras = {}
         for camera in cctv:
+            print(f"HOLD UPPPP Analysing {camera} ")
             video_path = cctv[camera]['URL']
             long = cctv[camera]['Longitude']
             lat = cctv[camera]['Lattitude']
             crowd = estimator.analyse_stream(video_path,camera)
             cameras[camera] = {"Longitude":long,"Lattitude":lat,"Num_people":crowd[1]}
+
+        print("Crowd Density analysis done :)))))))))))")
+            
 
         ###GET THE NUM_PEOPLE FOR EACH CAMERA FROM CV,
         ### ABOVE SHOULD BE THE FORMAT BEFORE INPUTTING INTO MAP FUNCTION
