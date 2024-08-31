@@ -38,7 +38,7 @@ function Heatmap(){
                     <Link to={`/heatmap`}>
                         Sitemap
                     </Link>
-                    <img src="crowdsight/src/assets/cctv.png" />
+                    <i id="icons"class="fa-solid fa-video"></i>
                     <Link to={`/camera`}>
                         Cameras
                     </Link>

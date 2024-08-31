@@ -101,8 +101,8 @@ function Marker(){
                             <tr>
                                 <th></th>
                                 <th>Name</th>
-                                <th>Longitude</th>
                                 <th>Latitude</th>
+                                <th>Longitude</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,8 +112,8 @@ function Marker(){
                                 <tr key={index}>
                                     <td>{document.type}</td>
                                     <td>{document.label}</td>
-                                    <td>{document.longitude}</td>
                                     <td>{document.latitude}</td>
+                                    <td>{document.longitude}</td>
                                 </tr>
                                 )
                             })
@@ -121,6 +121,7 @@ function Marker(){
                         </tbody>
                     </table>
                 </div>
+
                 <div className="sidebar">
 
                     <i id="icons" className="fa-solid fa-map"></i>

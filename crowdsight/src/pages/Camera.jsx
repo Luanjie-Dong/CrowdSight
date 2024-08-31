@@ -1,13 +1,12 @@
 import axios from "axios";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 
 function Camera(){
     const endpoint = import.meta.env.VITE_MONGODB_ENDPOINT + "/action/find"
     const apikey = import.meta.env.VITE_MONGODB_API_KEY;
-    var camera_data = null;
 
-    console.log(endpoint);
+    const [documents, setDocuments] = useState([]);
 
     const data = JSON.stringify({
         "dataSource":"ESGeePeeTee",
@@ -26,78 +25,116 @@ function Camera(){
         data: data,
     };
 
-    axios(config)
-        .then((response) => {
-            // Access the array of documents directly from response.data
-            if (response.data.documents !== null) {
-                // console.log('successful');
-                camera_data = response.data.documents;
-                const all_cameras = []
-
-                for (const c in camera_data) {
-                    all_cameras.push({
-                        name: camera_data[c].name,
-                        longitude: camera_data[c].longitude,
-                        latitude: camera_data[c].latitude,
-                        url: camera_data[c].url,
-                    })
+    useEffect(() => {
+        axios(config)
+            .then((response) => {
+                if (response.data && response.data.documents) {
+                    setDocuments(response.data.documents);
+                } else {
+                    console.error("Failed to retrieve documents");
                 }
-                console.log(all_cameras);
-            } else {
-              alert("CCTV data not retrieved");
-            }
-        })
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
 
-
-    const submit = () => {
+    const submit = (event) => {
         event.preventDefault();
-    }
 
-    // var object = "";
+        const cam_name = document.getElementById("cam_name").value;
+        const cam_long = document.getElementById("cam_long").value;
+        const cam_lat = document.getElementById("cam_lat").value;
+        const cam_url = document.getElementById("cam_url").value;
 
-    return(
-        <>
-           <body id="add">
-                   <div id="content">
-                           <form action="#">
-                           <div id="text">
-                   
-                    <h1 class="headers">Add Camera</h1>
-                    <input type="text" id='cam_name' class="container textvalue" placeholder="Name"/>
-                    <input type="text" id='cam_long' class="container textvalue" placeholder="Longitude"/>
-                    <input type="text" id='cam_lat'class="container textvalue" placeholder="Latitude"/>
-                    <input type="text" id='cam_uri'class="container textvalue" placeholder="URI"/>
-                           </div>
-                           <button class="container generate" onClick={submit}>Add Camera</button>
-                           </form>
-                       </div>
-                   
-                       <div class="sidebar">
+        const add_endpoint = import.meta.env.VITE_MONGODB_ENDPOINT + "/action/insertOne";
+        const add_data = JSON.stringify({
+            "dataSource": "ESGeePeeTee",
+            "database": "crowdsight",
+            "collection": "cctv",
+            "document": {
+                "name": cam_name,
+                "longitude": cam_long,
+                "latitude": cam_lat,
+                "url": cam_url,
+            },
+        });
 
-                           <i id="icons" class="fa-solid fa-map"></i>
-                           <Link to={`/heatmap`}>
-                                Sitemap
-                            </Link>
-                           <img src="crowdsight/src/assets/cctv.png" />
-                           <Link to={`/camera`}>
-                                Cameras
-                            </Link>
-                           <i id="icons"class="fa-solid fa-location-dot"></i>
-                           <Link to={`/marker`}>
-                                Markers
-                            </Link>
-                           <img id="logo"src="crowdsight/src/assets/Nomura A1 (1).png" />
-                       </div>
+        const add_config = {
+            method: 'post',
+            url: add_endpoint,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apikey}`,
+            },
+            data: add_data,
+        };
 
-                       <div class="existing">
-                        <table>
-                            {/* object */}
-                        </table>
-                       </div>
+        axios(add_config)
+            .then((response) => {
+                if (response.data) {
+                    alert("Camera added successfully!");
+                    location.reload(); // Reload page to show updated data
+                } else {
+                    alert("Failed to add camera!");
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
+    return (
+        <div id="add">
+            <div id="content">
+                <form action="#">
+                    <div id="text">
+                        <h1 className="headers">Add Camera</h1>
+                        <input type="text" id="cam_name" className="container textvalue" placeholder="Name" />
+                        <input type="text" id="cam_lat" className="container textvalue" placeholder="Latitude" />
+                        <input type="text" id="cam_long" className="container textvalue" placeholder="Longitude" />
+                        <input type="text" id="cam_url" className="container textvalue" placeholder="URL" />
+                    </div>
+                    <button className="container generate" onClick={submit}>Add Camera</button>
+                </form>
+            </div>
 
-           </body>
-        </>
-    )
+            <div id="marker_list">
+                <h1 className="headers">Current Cameras</h1>
+                <table id="mrt_stations_list" className="table_list">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>URL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {documents.map((document, index) => (
+                                <tr key={index}>
+                                    <td>{document.name}</td>
+                                    <td>{document.latitude}</td>
+                                    <td>{document.longitude}</td>
+                                    <td><a href={document.url}>{document.url}</a></td>
+                                </tr>
+                            ))}
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            <div className="sidebar">
+                <i id="icons" className="fa-solid fa-map"></i>
+                <Link to={`/heatmap`}>Sitemap</Link>
+                <i id="icons" className="fa-solid fa-video"></i>
+                <Link to={`/camera`}>Cameras</Link>
+                <i id="icons" className="fa-solid fa-location-dot"></i>
+                <Link to={`/marker`}>Markers</Link>
+                <img id="logo" src="crowdsight/src/assets/Nomura A1 (1).png" />
+            </div>
+        </div>
+    );
 }
-export default Camera
+
+export default Camera;
