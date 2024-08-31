@@ -37,8 +37,8 @@ function Home(){
 
     const submit = () => {
         event.preventDefault();
-        const AOI_long = document.getElementById("AOI-long").value;
-        const AOI_lat = document.getElementById("AOI-lat").value;
+        const AOI_long = parseFloat(document.getElementById("AOI-long").value);
+        const AOI_lat = parseFloat(document.getElementById("AOI-lat").value);
         const file_input = document.getElementById("file-input").files[0];
 
         if (AOI_lat == "" || AOI_long == "") {

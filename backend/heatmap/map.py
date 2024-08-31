@@ -8,8 +8,9 @@ import branca.colormap as cm
 
 def create_map(aoi,mrt,bus_stops,cameras):
     # Load your GeoJSON file, USE heatmap/data/sg-2008.geojson FOR DEMO. CHANGE TO heatmap/data/sitemap.json FOR ACTUAL 
-    with open('heatmap/data/sg-2008.geojson') as f:
+    with open('./heatmap/data/sg-2008.geojson') as f:
         geojson_data_sg = json.load(f)
+        print(geojson_data_sg)
 
     """BASE LAYER"""
     # Initialize the map centered around the same coordinates with a similar zoom level

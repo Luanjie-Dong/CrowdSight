@@ -39,8 +39,8 @@ function Marker(){
         event.preventDefault();
 
         const marker_label = document.getElementById('marker_label').value;
-        const marker_long = document.getElementById('marker_long').value;
-        const marker_lat = document.getElementById('marker_lat').value;
+        const marker_long = parseFloat(document.getElementById('marker_long').value);
+        const marker_lat = parseFloat(document.getElementById('marker_lat').value);
         const marker_type = document.getElementById('marker_type').value;
 
         const add_endpoint = import.meta.env.VITE_MONGODB_ENDPOINT + "/action/insertOne";
