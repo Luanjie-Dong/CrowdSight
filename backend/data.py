@@ -50,9 +50,9 @@ def map_data():
             aoi_lat = aoi_response_data[0]["latitude"]
             aoi_lot = aoi_response_data[0]["longitude"]
             aoi = [aoi_lat,aoi_lot]
-            site_map = aoi_response_data[0]["sitemap_file"]
-            with open("./heatmap/data/sitemap.json", "wb") as f:
-                f.write(site_map)
+            # site_map = aoi_response_data[0]["sitemap_file"]
+            # with open("./heatmap/data/sitemap.json", "wb") as f:
+            #     f.write(site_map)
             print("AOI data saved successfully")
         
         #Get CCTV
