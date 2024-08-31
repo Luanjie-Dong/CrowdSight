@@ -43,6 +43,14 @@ function Marker(){
         const marker_lat = document.getElementById('marker_lat').value;
         const marker_type = document.getElementById('marker_type').value;
 
+        // console.log("mar_label:", marker_label);
+        // console.log("mar_long:", marker_long);
+        // console.log("mar_lat:", marker_lat);
+        // console.log("mar_type:", marker_type);
+        if (marker_label==""|| marker_lat==""|| marker_long==""|| marker_type=="Select Type") {
+            alert("Fill in all blanks!");
+        } 
+        else {
         const add_endpoint = import.meta.env.VITE_MONGODB_ENDPOINT + "/action/insertOne";
         const add_data = JSON.stringify({
             "dataSource":"ESGeePeeTee",
@@ -73,7 +81,7 @@ function Marker(){
                 console.error(error);
                 alert("Failed to add marker!");
             })
-        
+        }
     }
     return(
         <>
@@ -83,8 +91,8 @@ function Marker(){
                         <div id="text">
                             <h1 className="headers">Add Marker</h1>
                             <input type="text" id='marker_label' className="container textvalue" placeholder="Label"/>
-                            <input type="text" id='marker_lat'className="container textvalue" placeholder="Latitude"/>
-                            <input type="text" id='marker_long' className="container textvalue" placeholder="Longitude"/>
+                            <input type="number" id='marker_lat'className="container textvalue" placeholder="Latitude"/>
+                            <input type="number" id='marker_long' className="container textvalue" placeholder="Longitude"/>
                             <select id='marker_type' className="container textvalue">
                                 <option selected disabled>Select Type</option>
                                 <option value="mrt_station">MRT Station</option>

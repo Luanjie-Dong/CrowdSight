@@ -41,11 +41,20 @@ function Camera(){
 
     const submit = (event) => {
         event.preventDefault();
-
+        
         const cam_name = document.getElementById("cam_name").value;
         const cam_long = document.getElementById("cam_long").value;
         const cam_lat = document.getElementById("cam_lat").value;
         const cam_url = document.getElementById("cam_url").value;
+        // console.log("cam_lat:", cam_lat);
+        // console.log("cam_long:", cam_long);
+        // console.log("cam_name:", cam_name);
+        // console.log("cam_url:", cam_url);
+        if (cam_lat==""|| cam_long==""|| cam_name==""|| cam_url=="") {
+            alert("Fill in all blanks!");
+        } 
+        else {
+
 
         const add_endpoint = import.meta.env.VITE_MONGODB_ENDPOINT + "/action/insertOne";
         const add_data = JSON.stringify({
@@ -79,10 +88,8 @@ function Camera(){
                     alert("Failed to add camera!");
                 }
             })
-            .catch((error) => {
-                console.error(error);
-            });
-    };
+    }}
+    ;
 
     return (
         <div id="add">
@@ -91,8 +98,8 @@ function Camera(){
                     <div id="text">
                         <h1 className="headers">Add Camera</h1>
                         <input type="text" id="cam_name" className="container textvalue" placeholder="Name" />
-                        <input type="text" id="cam_lat" className="container textvalue" placeholder="Latitude" />
-                        <input type="text" id="cam_long" className="container textvalue" placeholder="Longitude" />
+                        <input type="number" id="cam_lat" className="container textvalue" placeholder="Latitude" step="0.01" />
+                        <input type="number" id="cam_long" className="container textvalue" placeholder="Longitude" step="0.01"/>
                         <input type="text" id="cam_url" className="container textvalue" placeholder="URL" />
                     </div>
                     <button className="container generate" onClick={submit}>Add Camera</button>
