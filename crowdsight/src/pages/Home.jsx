@@ -39,9 +39,19 @@ function Home(){
         event.preventDefault();
         const AOI_long = document.getElementById("AOI-long").value;
         const AOI_lat = document.getElementById("AOI-lat").value;
-        const sitemap_file = document.getElementById("file-input").files[0];
-        const formData = new FormData();
-        formData.append('file', sitemap_file);
+        const file_input = document.getElementById("file-input").files[0];
+
+        if (AOI_lat == "" || AOI_long == "") {
+            alert("Please enter latitude and longitude");
+        }
+        
+        // const formData = new FormData();
+        const blob = new Blob([JSON.stringify(file_input)], {
+            type: 'application/json'
+        })
+        // console.log(file_input);
+
+        // formData.append('file', file_input);
 
         const data = JSON.stringify({
             "dataSource":"ESGeePeeTee",
@@ -50,11 +60,11 @@ function Home(){
             "document":{
                 "longitude": AOI_long,
                 "latitude": AOI_lat,
-                "sitemap_file": formData,
+                "sitemap_file": blob,
             },
         })
 
-        console.log(data);
+        console.log(blob);
 
         const config = {
             method: 'post',
@@ -76,9 +86,6 @@ function Home(){
               alert("AOI not saved");
             }
         })
-    
-
-
 
 
     }
