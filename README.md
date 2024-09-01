@@ -1,6 +1,6 @@
 # CrowdSight
 
-![CrowdSight Dashboard](./crowdsight/src/assets/Nomura%20A1%20(1).png)
+![CrowdSight LOGO](./crowdsight/src/assets/Nomura%20A1%20(1).png)
 
 ## Project Description
 
@@ -19,13 +19,22 @@ This project utilizes a vision model based on the work of Sindagi, V. A., & Pate
 ### Frontend
 - **CrowdSight**: The frontend code that powers the dashboard, providing the view of the event map with the crowd density heatmap.
 
-To run the application:
-1: ensure that ffmpeg is downloaded 
-    for mac , run brew install ffmpeg in the terminal
-    for windows, download from the link here https://www.ffmpeg.org/download.html
+## Running the Application
 
-2: go to the crowdsight folder and use npm run dev to start the frontend server
+Follow these steps to run the application:
 
-3: go to the backend folder use python server.py to start the backend server
+1. **Ensure that FFmpeg is downloaded:**
+   - For Mac: Run `brew install ffmpeg` in the terminal.
+   - For Windows: Download from the [FFmpeg website](https://www.ffmpeg.org/download.html).
 
-4: go to http://localhost:5173/ in your web browser to access the app, you may need to use a private browser as certain extentions block some of the function in our app
+2. **Start the Frontend Server:**
+   - Navigate to the `crowdsight` folder.
+   - Run `npm run dev` to start the frontend server.
+
+3. **Start the Backend Server:**
+   - Navigate to the `backend` folder.
+   - Run `python server.py` to start the backend server.
+
+4. **Access the Application:**
+   - Go to [http://localhost:5173/](http://localhost:5173/) in your web browser.
+   - You may need to use a private browsing window if certain extensions block some functionality in the app.
