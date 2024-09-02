@@ -5,6 +5,8 @@ endpoint_url = " https://ap-southeast-1.aws.data.mongodb-api.com/app/data-fevcdn
 API_KEY = 'KdrhLZMfd335dURL2AUB2Tbtav6SCdtCBdbyrBRX1OwFHzd2H4rEtG1YKzgtD8o9'
 
 get_url = f'{endpoint_url}/find'
+update_url = f'{endpoint_url}/updateOne'
+get_one_url = f'{endpoint_url}/fineOne'
 
 
 def map_data():
@@ -90,12 +92,73 @@ def map_data():
     return aoi , cctv_array , bus_array , mrt_array
 
 
+def update(url_links, check_mode=False):
+    headers = {
+        'Content-Type': 'application/json',
+        'api-key': API_KEY
+    }
+
+    # Define the base structure for querying CCTV data
+    base_query = {
+        "dataSource": "ESGeePeeTee",
+        "database": "crowdsight",
+        "collection": "cctv",
+    }
+
+    for camera_name, camera_url in url_links.items():
+        # Define the specific filter for the current camera
+        find_query = {**base_query, "filter": {"name": camera_name}}
+
+        # Define the update operation
+        update_query = {
+            **base_query,
+            "filter": {"name": camera_name},
+            "update": {"$set": {"url": camera_url}}
+        }
+
+        try:
+            if check_mode:
+                # Checking mode - Fetch CCTV data without updating
+                cctv_response = requests.post(get_url, headers=headers, json=find_query)
+                if cctv_response.status_code == 200:
+                    print(f"Fetched CCTV data for {camera_name}")
+                    cctv_data = cctv_response.json().get('documents', [])
+                    print(cctv_data)
+                else:
+                    print(f"Failed to fetch data for {camera_name}: {cctv_response.status_code} - {cctv_response.text}")
+            else:
+                # Update mode - Perform the update
+                cctv_response = requests.post(get_url, headers=headers, json=find_query)
+                if cctv_response.status_code == 200:
+                    update_response = requests.post(update_url, headers=headers, json=update_query)
+                    if update_response.status_code == 200:
+                        print(f"Successfully updated URL for {camera_name}")
+                    else:
+                        print(f"Failed to update URL for {camera_name}: {update_response.status_code} - {update_response.text}")
+                else:
+                    print(f"Failed to find camera {camera_name}: {cctv_response.status_code} - {cctv_response.text}")
+
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {e}")
+
+    
+   
+
+
+
 
 
 if __name__ == "__main__":
     # Example company data to update or store
-    aoi , cctv , bus , mrt = map_data()
-    print(aoi)
-    print(cctv)
-    print(bus)
-    print(mrt)
+    # aoi , cctv , bus , mrt = map_data()
+    # print(aoi)
+    # print(cctv)
+    # print(bus)
+    # print(mrt)
+
+    url_links = {'Gate 1':'https://hd-auth.skylinewebcams.com/live.m3u8?a=v4s81gppcdsbpaca89ei5jl1k0',
+                 'Gate 2':'https://hd-auth.skylinewebcams.com/live.m3u8?a=v4s81gppcdsbpaca89ei5jl1k0',
+                 'Gate 3A':'https://hd-auth.skylinewebcams.com/live.m3u8?a=v4s81gppcdsbpaca89ei5jl1k0',
+                 'Gate 3B':'https://hd-auth.skylinewebcams.com/live.m3u8?a=v4s81gppcdsbpaca89ei5jl1k0'}
+    check_type = ['checking',None]
+    update(url_links,check_type[1])
