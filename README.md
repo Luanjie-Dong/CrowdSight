@@ -4,7 +4,7 @@
 
 ## Project Description
 
-CrowdSight enables event organizers to model their event locations and use CCTV footage to visualize crowd density along predetermined exit routes. The system features a dashboard that provides a real-time overview of the event map, layered with a crowd density heatmap around key exit routes. This data allows event organizers and crowd control staff to deploy resources effectively, ensuring the efficient movement of people in and out of the event.
+Developed for Ellipsis X HST Tech Series Hackathon 2024, CrowdSight enables event organizers to model their event locations and use CCTV footage to visualize crowd density along predetermined exit routes. The system features a dashboard that provides a real-time overview of the event map, layered with a crowd density heatmap around key exit routes. This data allows event organizers and crowd control staff to deploy resources effectively, ensuring the efficient movement of people in and out of the event.
 
 ## Project Reference
 
