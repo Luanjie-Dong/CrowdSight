@@ -1,8 +1,8 @@
 import requests
 import json
 
-endpoint_url = " https://ap-southeast-1.aws.data.mongodb-api.com/app/data-fevcdnd/endpoint/data/v1/action" #edit your endpoint
-API_KEY = 'KdrhLZMfd335dURL2AUB2Tbtav6SCdtCBdbyrBRX1OwFHzd2H4rEtG1YKzgtD8o9'
+endpoint_url = "" #edit your endpoint
+API_KEY = "" #edit your mongodb key
 
 get_url = f'{endpoint_url}/find'
 update_url = f'{endpoint_url}/updateOne'
