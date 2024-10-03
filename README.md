@@ -1,10 +1,10 @@
 # CrowdSight
 
-![CrowdSight Dashboard](./crowdsight/src/assets/Nomura%20A1%20(1).png)
+![CrowdSight LOGO](./crowdsight/src/assets/Nomura%20A1%20(1).png)
 
 ## Project Description
 
-CrowdSight enables event organizers to model their event locations and use CCTV footage to visualize crowd density along predetermined exit routes. The system features a dashboard that provides a real-time overview of the event map, layered with a crowd density heatmap around key exit routes. This data allows event organizers and crowd control staff to deploy resources effectively, ensuring the efficient movement of people in and out of the event.
+Developed for Ellipsis X HST Tech Series Hackathon 2024, CrowdSight enables event organizers to model their event locations and use CCTV footage to visualize crowd density along predetermined exit routes. The system features a dashboard that provides a real-time overview of the event map, layered with a crowd density heatmap around key exit routes. This data allows event organizers and crowd control staff to deploy resources effectively, ensuring the efficient movement of people in and out of the event.
 
 ## Project Reference
 
@@ -18,3 +18,23 @@ This project utilizes a vision model based on the work of Sindagi, V. A., & Pate
 
 ### Frontend
 - **CrowdSight**: The frontend code that powers the dashboard, providing the view of the event map with the crowd density heatmap.
+
+## Running the Application
+
+Follow these steps to run the application:
+
+1. **Ensure that FFmpeg is downloaded:**
+   - For Mac: Run `brew install ffmpeg` in the terminal.
+   - For Windows: Download from the [FFmpeg website](https://www.ffmpeg.org/download.html).
+
+2. **Start the Frontend Server:**
+   - Navigate to the `crowdsight` folder.
+   - Run `npm run dev` to start the frontend server.
+
+3. **Start the Backend Server:**
+   - Navigate to the `backend` folder.
+   - Run `python server.py` to start the backend server.
+
+4. **Access the Application:**
+   - Go to [http://localhost:5173/](http://localhost:5173/) in your web browser.
+   - You may need to use a private browsing window if certain extensions block some functionality in the app.

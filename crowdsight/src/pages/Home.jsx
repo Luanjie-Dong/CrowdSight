@@ -3,16 +3,55 @@ import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 function Home(){
 
-
-    const endpoint = import.meta.env.VITE_MONGODB_ENDPOINT + "/action/insertOne"
+    const endpoint = import.meta.env.VITE_MONGODB_ENDPOINT;
     const apikey = import.meta.env.VITE_MONGODB_API_KEY;
     const navigate = useNavigate();
 
+    // look for aoi file in mongodb
+
+    const find_data = JSON.stringify({
+        "dataSource":"ESGeePeeTee",
+        "database" : "crowdsight",
+        "collection" : "aoi",
+        "filter":{},
+    })
+
+    const find_config = {
+        method: 'post',
+        url: endpoint + "/action/findOne",
+        headers: {
+        'Authorization': `Bearer ${apikey}`,
+        'Content-Type': 'application/json',
+        },
+        data: find_data,
+    };
+
+    axios(find_config)
+    .then((response) => {
+        // Access the array of documents directly from response.data
+        if (response.data.document !== null) {
+            console.log('aoi already loaded');
+            navigate('/heatmap');
+        }
+    });
+
     const submit = () => {
         event.preventDefault();
-        const AOI_long = document.getElementById("AOI-long").value;
-        const AOI_lat = document.getElementById("AOI-lat").value;
-        const sitemap_file = document.getElementById("file-input");
+        const AOI_long = parseFloat(document.getElementById("AOI-long").value);
+        const AOI_lat = parseFloat(document.getElementById("AOI-lat").value);
+        const file_input = document.getElementById("file-input").files[0];
+
+        if (AOI_lat == "" || AOI_long == "") {
+            alert("Please enter latitude and longitude");
+        }
+        
+        // const formData = new FormData();
+        const blob = new Blob([JSON.stringify(file_input)], {
+            type: 'application/json'
+        })
+        // console.log(file_input);
+
+        // formData.append('file', file_input);
 
         const data = JSON.stringify({
             "dataSource":"ESGeePeeTee",
@@ -21,15 +60,15 @@ function Home(){
             "document":{
                 "longitude": AOI_long,
                 "latitude": AOI_lat,
-                // "sitemap_file": sitemap_file
+                "sitemap_file": blob,
             },
         })
 
-        console.log(data);
+        console.log(blob);
 
         const config = {
             method: 'post',
-            url: endpoint,
+            url: endpoint + "/action/insertOne",
             headers: {
             'Authorization': `Bearer ${apikey}`,
             'Content-Type': 'application/json',
@@ -47,9 +86,6 @@ function Home(){
               alert("AOI not saved");
             }
         })
-    
-
-
 
 
     }
@@ -76,7 +112,7 @@ function Home(){
                                 </div>
                             </label >
                             </div>
-                            <input type="file" class="sitemap-input" id="file-input" hidden/>
+                            <input type="file" class="sitemap-input" id="file-input" accept=".geojson" hidden/>
                         </div>
                         <button class="container generate" onClick={submit}>Generate Heatmap</button>
                         </form>

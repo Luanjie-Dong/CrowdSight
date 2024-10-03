@@ -43,8 +43,8 @@ function Camera(){
         event.preventDefault();
         
         const cam_name = document.getElementById("cam_name").value;
-        const cam_long = document.getElementById("cam_long").value;
-        const cam_lat = document.getElementById("cam_lat").value;
+        const cam_long = parseFloat(document.getElementById("cam_long").value);
+        const cam_lat = parseFloat(document.getElementById("cam_lat").value);
         const cam_url = document.getElementById("cam_url").value;
         // console.log("cam_lat:", cam_lat);
         // console.log("cam_long:", cam_long);
