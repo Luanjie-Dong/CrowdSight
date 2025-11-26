@@ -1,3 +1,5 @@
+[![Contributors][contributors-shield]][https://github.com/Luanjie-Dong]
+
 # CrowdSight
 ![CrowdSight LOGO](./crowdsight/src/assets/Nomura%20A1%20(1).png)
 
