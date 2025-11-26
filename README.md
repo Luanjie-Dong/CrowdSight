@@ -1,23 +1,32 @@
 # CrowdSight
-
 ![CrowdSight LOGO](./crowdsight/src/assets/Nomura%20A1%20(1).png)
 
-## Project Description
-
+## Overview
 Developed for Ellipsis X HST Tech Series Hackathon 2024, CrowdSight enables event organizers to model their event locations and use CCTV footage to visualize crowd density along predetermined exit routes. The system features a dashboard that provides a real-time overview of the event map, layered with a crowd density heatmap around key exit routes. This data allows event organizers and crowd control staff to deploy resources effectively, ensuring the efficient movement of people in and out of the event.
 
-## Project Reference
+## Features
+| Feature | Description | Status |
+|---------|-------------|--------|
+| **Crowd Heat Map** | Visualizes crowd density using color gradients to highlight dense areas | ✅ Implemented |
+| **Customizable Location Map** | Base map can be easily swapped to display detailed crowd information for different venues | ✅ Implemented |
+| **Exit Routes** | Displays predefined exit locations on the map to support better decision-making | ✅ Implemented |
 
-This project utilizes a vision model based on the work of Sindagi, V. A., & Patel, V. M. (2017). CNN-based cascaded multi-task learning of high-level prior and density estimation for crowd counting. You can read more about this model [here](https://doi.org/10.48550/arXiv.1707.09605).
+## Technical Implementation
 
-## Project Features
+### Computer Vision Model
+- Implements a computer vision model for analyzing CCTV footage to estimate crowd density
+- Processes real-time video feeds to generate density maps
 
-### Backend
-- **Model**: Implements a computer vision model for analyzing CCTV footage to estimate crowd density.
-- **Heatmap**: Generates layered maps of the event venue, visualizing crowd density on top of the event layout.
+### Frontend (NextJS)
+- Powers the interactive dashboard interface
+- Displays event maps with overlay crowd density heatmaps
+- Provides real-time visualization of crowd movement patterns
 
-### Frontend
-- **CrowdSight**: The frontend code that powers the dashboard, providing the view of the event map with the crowd density heatmap.
+### Backend (Flask API)
+- Serves as the central API endpoint for data processing
+- Handles communication between computer vision model and frontend
+- Manages data flow and real-time updates
+
 
 ## Running the Application
 
@@ -38,3 +47,9 @@ Follow these steps to run the application:
 4. **Access the Application:**
    - Go to [http://localhost:5173/](http://localhost:5173/) in your web browser.
    - You may need to use a private browsing window if certain extensions block some functionality in the app.
+
+
+## References
+This project utilizes a vision model based on the research:
+**Sindagi, V. A., & Patel, V. M. (2017).** *CNN-based cascaded multi-task learning of high-level prior and density estimation for crowd counting.*  
+[Read the paper here](https://doi.org/10.48550/arXiv.1707.09605)
