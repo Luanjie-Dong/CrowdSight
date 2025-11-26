@@ -55,3 +55,8 @@ Follow these steps to run the application:
 This project utilizes a vision model based on the research:
 **Sindagi, V. A., & Patel, V. M. (2017).** *CNN-based cascaded multi-task learning of high-level prior and density estimation for crowd counting.*  
 [Read the paper here](https://doi.org/10.48550/arXiv.1707.09605)
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
+[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
