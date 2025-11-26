@@ -12,7 +12,7 @@ Developed for Ellipsis X HST Tech Series Hackathon 2024, CrowdSight enables even
 | **Customizable Location Map** | Base map can be easily swapped to display detailed crowd information for different venues | ✅ Implemented |
 | **Exit Routes** | Displays predefined exit locations on the map to support better decision-making | ✅ Implemented |
 
-## Technical Implementation
+## Technical Implementations
 
 - **Computer Vision Model** [code](https://github.com/Luanjie-Dong/CrowdSight/tree/main/backend/model)
    - Implements a computer vision model for analyzing CCTV footage to estimate crowd density
