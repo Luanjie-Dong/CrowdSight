@@ -1,4 +1,8 @@
-[![Contributors](https://img.shields.io/badge/contributors-4-blue?style=for-the-badge)](https://github.com/Luanjie-Dong/crowdsight/graphs/contributors)
+## 👥 Contributors
+
+<a href="https://github.com/your-username/crowdsight/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Luanjie-Dong/crowdsight" />
+</a>
 
 # CrowdSight
 ![CrowdSight LOGO](./crowdsight/src/assets/Nomura%20A1%20(1).png)
