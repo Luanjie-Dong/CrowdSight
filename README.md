@@ -14,16 +14,16 @@ Developed for Ellipsis X HST Tech Series Hackathon 2024, CrowdSight enables even
 
 ## Technical Implementations
 
-- **Computer Vision Model** [code](https://github.com/Luanjie-Dong/CrowdSight/tree/main/backend/model)
+- **Computer Vision Model** - [View Code](https://github.com/Luanjie-Dong/CrowdSight/tree/main/backend/model)
    - Implements a computer vision model for analyzing CCTV footage to estimate crowd density
    - Processes real-time video feeds to generate density maps
 
-- **Frontend (NextJS)** [code](https://github.com/Luanjie-Dong/CrowdSight/tree/main/crowdsight)
+- **Frontend (NextJS)** - [View Code](https://github.com/Luanjie-Dong/CrowdSight/tree/main/crowdsight)
    - Powers the interactive dashboard interface
    - Displays event maps with overlay crowd density heatmaps
    - Provides real-time visualization of crowd movement patterns
 
-- **Backend (Flask API)** [code](https://github.com/Luanjie-Dong/CrowdSight/blob/main/backend/server.py)
+- **Backend (Flask API)** - [View Code](https://github.com/Luanjie-Dong/CrowdSight/blob/main/backend/server.py)
    - Serves as the central API endpoint for data processing
    - Handles communication between computer vision model and frontend
    - Manages data flow and real-time updates
