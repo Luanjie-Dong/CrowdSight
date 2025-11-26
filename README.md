@@ -13,19 +13,19 @@ Developed for Ellipsis X HST Tech Series Hackathon 2024, CrowdSight enables even
 
 ## Technical Implementation
 
-### Computer Vision Model
-- Implements a computer vision model for analyzing CCTV footage to estimate crowd density
-- Processes real-time video feeds to generate density maps
+- **Computer Vision Model**
+   - Implements a computer vision model for analyzing CCTV footage to estimate crowd density
+   - Processes real-time video feeds to generate density maps
 
-### Frontend (NextJS)
-- Powers the interactive dashboard interface
-- Displays event maps with overlay crowd density heatmaps
-- Provides real-time visualization of crowd movement patterns
+- **Frontend (NextJS)**
+   - Powers the interactive dashboard interface
+   - Displays event maps with overlay crowd density heatmaps
+   - Provides real-time visualization of crowd movement patterns
 
-### Backend (Flask API)
-- Serves as the central API endpoint for data processing
-- Handles communication between computer vision model and frontend
-- Manages data flow and real-time updates
+- **Backend (Flask API)**
+   - Serves as the central API endpoint for data processing
+   - Handles communication between computer vision model and frontend
+   - Manages data flow and real-time updates
 
 
 ## Running the Application
