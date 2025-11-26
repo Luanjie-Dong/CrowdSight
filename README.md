@@ -51,7 +51,7 @@ Follow these steps to run the application:
 
 ## Contributors
 
-<a href="https://github.com/your-username/crowdsight/graphs/contributors">
+<a href="https://github.com/Luanjie-Dong/crowdsight/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Luanjie-Dong/crowdsight" />
 </a>
 
