@@ -1,8 +1,3 @@
-## 👥 Contributors
-
-<a href="https://github.com/your-username/crowdsight/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Luanjie-Dong/crowdsight" />
-</a>
 
 # CrowdSight
 ![CrowdSight LOGO](./crowdsight/src/assets/Nomura%20A1%20(1).png)
@@ -54,6 +49,11 @@ Follow these steps to run the application:
    - Go to [http://localhost:5173/](http://localhost:5173/) in your web browser.
    - You may need to use a private browsing window if certain extensions block some functionality in the app.
 
+## Contributors
+
+<a href="https://github.com/your-username/crowdsight/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Luanjie-Dong/crowdsight" />
+</a>
 
 ## References
 This project utilizes a vision model based on the research:
@@ -61,6 +61,3 @@ This project utilizes a vision model based on the research:
 [Read the paper here](https://doi.org/10.48550/arXiv.1707.09605)
 
 
-<!-- MARKDOWN LINKS & IMAGES -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
