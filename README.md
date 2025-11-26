@@ -13,7 +13,7 @@ Developed for Ellipsis X HST Tech Series Hackathon 2024, CrowdSight enables even
 
 ## Technical Implementation
 
-- **Computer Vision Model** [code]([https://github.com/Luanjie-Dong/CrowdSight/tree/main/crowdsight](https://github.com/Luanjie-Dong/CrowdSight/tree/main/backend/model))
+- **Computer Vision Model** [code](https://github.com/Luanjie-Dong/CrowdSight/tree/main/backend/model)
    - Implements a computer vision model for analyzing CCTV footage to estimate crowd density
    - Processes real-time video feeds to generate density maps
 
